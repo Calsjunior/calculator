@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: white;
+}
+
+#calculator {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#calculator-container {
+    height: 600px;
+    width: 400px;
+    background-color: gray;
+    border: 1px solid darkgray;
+    border-radius: 10px;
+}
+
+.display-numbers {
+    height: 30px;
+}
+
+button {
+    height: 80px;
+    width: 80px;
+}
