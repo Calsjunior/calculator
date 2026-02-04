@@ -14,6 +14,14 @@ const divide = function (firstNumber, secondNumber) {
     return firstNumber / secondNumber;
 };
 
+const modulo = function (firstNumber, secondNumber) {
+    return firstNumber % secondNumber;
+};
+
+const root = function (firstNumber, secondNumber) {
+    return Math.pow(firstNumber, 1 / secondNumber);
+};
+
 const operate = function (operator, firstNumber, secondNumber) {
     switch (operator) {
         case "+":
@@ -24,6 +32,10 @@ const operate = function (operator, firstNumber, secondNumber) {
             return multiply(firstNumber, secondNumber);
         case "/":
             return divide(firstNumber, secondNumber);
+        case "%":
+            return modulo(firstNumber, secondNumber);
+        case "root":
+            return root(firstNumber, secondNumber);
     }
 };
 
