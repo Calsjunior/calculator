@@ -43,14 +43,17 @@ let firstNumber = "";
 let operator = "";
 let secondNumber = "";
 
+const display = document.querySelector(".display");
 const table = document.querySelector("table");
 table.addEventListener("click", (event) => {
     if (event.target.classList.contains("number")) {
         if (operator === "") {
             firstNumber += event.target.innerText;
+            display.innerText = firstNumber;
             console.log(firstNumber);
         } else {
             secondNumber += event.target.innerText;
+            display.innerText = secondNumber;
             console.log(secondNumber);
         }
     }
@@ -59,7 +62,8 @@ table.addEventListener("click", (event) => {
         if (event.target.innerText === "=") {
             firstNumber = parseFloat(firstNumber);
             secondNumber = parseFloat(secondNumber);
-            console.log(operate(operator, firstNumber, secondNumber));
+            let result = operate(operator, firstNumber, secondNumber);
+            display.innerText = result;
         } else {
             operator = event.target.innerText;
             console.log(operator);
