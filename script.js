@@ -39,8 +39,30 @@ const operate = function (operator, firstNumber, secondNumber) {
     }
 };
 
-let firstNumber = 2;
-let secondNumber = 3;
-let operator = "+";
+let firstNumber = "";
+let operator = "";
+let secondNumber = "";
 
-console.log(operate(operator, firstNumber, secondNumber));
+const table = document.querySelector("table");
+table.addEventListener("click", (event) => {
+    if (event.target.classList.contains("number")) {
+        if (operator === "") {
+            firstNumber += event.target.innerText;
+            console.log(firstNumber);
+        } else {
+            secondNumber += event.target.innerText;
+            console.log(secondNumber);
+        }
+    }
+
+    if (event.target.classList.contains("operator")) {
+        if (event.target.innerText === "=") {
+            firstNumber = parseFloat(firstNumber);
+            secondNumber = parseFloat(secondNumber);
+            console.log(operate(operator, firstNumber, secondNumber));
+        } else {
+            operator = event.target.innerText;
+            console.log(operator);
+        }
+    }
+});

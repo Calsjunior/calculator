@@ -28,7 +28,7 @@ body {
     text-align: right;
 }
 
-button {
+.calculator-button {
     height: 80px;
     width: 80px;
 }
