@@ -23,8 +23,9 @@ body {
     border-radius: 10px;
 }
 
-.display-numbers {
-    height: 30px;
+.display {
+    height: 80px;
+    text-align: right;
 }
 
 button {
