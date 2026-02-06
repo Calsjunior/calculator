@@ -16,11 +16,14 @@ body {
 }
 
 #calculator-container {
-    height: 600px;
-    width: 400px;
+    height: 520px;
+    width: 360px;
     background-color: gray;
     border: 1px solid darkgray;
     border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .display {
