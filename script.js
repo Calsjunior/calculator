@@ -39,6 +39,13 @@ const operate = function (operator, firstNumber, secondNumber) {
     }
 };
 
+const clear = function () {
+    firstNumber = "";
+    operator = "";
+    secondNumber = "";
+    display.innerText = 0;
+};
+
 let firstNumber = "";
 let operator = "";
 let secondNumber = "";
@@ -67,6 +74,12 @@ table.addEventListener("click", (event) => {
         } else {
             operator = event.target.innerText;
             console.log(operator);
+        }
+    }
+
+    if (event.target.classList.contains("function")) {
+        if (event.target.innerText === "C") {
+            clear();
         }
     }
 });
