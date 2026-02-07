@@ -31,15 +31,15 @@ const root = function (firstNumber, secondNumber) {
 
 const operate = function (operator, firstNumber, secondNumber) {
     switch (operator) {
-        case "+":
+        case "add":
             return add(firstNumber, secondNumber);
-        case "-":
+        case "subtract":
             return subtract(firstNumber, secondNumber);
-        case "*":
+        case "multiply":
             return multiply(firstNumber, secondNumber);
-        case "/":
+        case "divide":
             return divide(firstNumber, secondNumber);
-        case "%":
+        case "modulo":
             return modulo(firstNumber, secondNumber);
         case "root":
             return root(firstNumber, secondNumber);
@@ -71,11 +71,11 @@ table.addEventListener("click", (event) => {
             display.innerText = firstNumber;
         } else if (firstNumber != undefined && operator && secondNumber != undefined) {
             firstNumber = operate(operator, firstNumber, secondNumber);
-            operator = event.target.innerText;
+            operator = event.target.name;
             secondNumber = 0;
             display.innerText = firstNumber;
         } else {
-            operator = event.target.innerText;
+            operator = event.target.name;
         }
     } else if (event.target.classList.contains("function")) {
         if (event.target.innerText === "C") {
