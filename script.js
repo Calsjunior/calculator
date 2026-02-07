@@ -1,3 +1,10 @@
+const display = document.querySelector(".display");
+const table = document.querySelector("table");
+
+let firstNumber = "";
+let operator = "";
+let secondNumber = "";
+
 const add = function (firstNumber, secondNumber) {
     return firstNumber + secondNumber;
 };
@@ -46,12 +53,6 @@ const clear = function () {
     display.innerText = 0;
 };
 
-let firstNumber = "";
-let operator = "";
-let secondNumber = "";
-
-const display = document.querySelector(".display");
-const table = document.querySelector("table");
 table.addEventListener("click", (event) => {
     if (event.target.classList.contains("number")) {
         if (operator === "") {
