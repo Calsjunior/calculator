@@ -1,9 +1,9 @@
 const display = document.querySelector(".display");
 const table = document.querySelector("table");
 
-let firstNumber = "";
+let firstNumber = 0;
 let operator = "";
-let secondNumber = "";
+let secondNumber = 0;
 
 const add = function (firstNumber, secondNumber) {
     return firstNumber + secondNumber;
@@ -47,20 +47,20 @@ const operate = function (operator, firstNumber, secondNumber) {
 };
 
 const clear = function () {
-    firstNumber = "";
+    firstNumber = 0;
     operator = "";
-    secondNumber = "";
+    secondNumber = 0;
     display.innerText = 0;
 };
 
 table.addEventListener("click", (event) => {
     if (event.target.classList.contains("number")) {
         if (operator === "") {
-            firstNumber += event.target.innerText;
+            firstNumber = firstNumber * 10 + parseFloat(event.target.innerText);
             display.innerText = firstNumber;
             console.log(firstNumber);
         } else {
-            secondNumber += event.target.innerText;
+            secondNumber += secondNumber * 10 + parseFloat(event.target.innerText);
             display.innerText = secondNumber;
             console.log(secondNumber);
         }
@@ -68,8 +68,6 @@ table.addEventListener("click", (event) => {
 
     if (event.target.classList.contains("operator")) {
         if (event.target.innerText === "=") {
-            firstNumber = parseFloat(firstNumber);
-            secondNumber = parseFloat(secondNumber);
             firstNumber = operate(operator, firstNumber, secondNumber);
             secondNumber = "";
             display.innerText = firstNumber;
