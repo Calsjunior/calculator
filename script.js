@@ -71,6 +71,11 @@ table.addEventListener("click", (event) => {
             operator = "";
             secondNumber = 0;
             display.innerText = firstNumber;
+        } else if (firstNumber != undefined && operator && secondNumber != undefined) {
+            firstNumber = operate(operator, firstNumber, secondNumber);
+            operator = event.target.innerText;
+            secondNumber = 0;
+            display.innerText = firstNumber;
         } else {
             operator = event.target.innerText;
             console.log(operator);
