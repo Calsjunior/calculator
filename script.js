@@ -56,11 +56,10 @@ const clear = function () {
 table.addEventListener("click", (event) => {
     if (event.target.classList.contains("number")) {
         if (operator === "") {
-            firstNumber = 0;
             firstNumber = firstNumber * 10 + parseFloat(event.target.innerText);
             display.innerText = firstNumber;
         } else {
-            secondNumber += secondNumber * 10 + parseFloat(event.target.innerText);
+            secondNumber = secondNumber * 10 + parseFloat(event.target.innerText);
             display.innerText = secondNumber;
         }
     } else if (event.target.classList.contains("operator")) {
