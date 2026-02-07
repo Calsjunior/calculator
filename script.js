@@ -56,6 +56,7 @@ const clear = function () {
 table.addEventListener("click", (event) => {
     if (event.target.classList.contains("number")) {
         if (operator === "") {
+            firstNumber = 0;
             firstNumber = firstNumber * 10 + parseFloat(event.target.innerText);
             display.innerText = firstNumber;
             console.log(firstNumber);
@@ -64,20 +65,17 @@ table.addEventListener("click", (event) => {
             display.innerText = secondNumber;
             console.log(secondNumber);
         }
-    }
-
-    if (event.target.classList.contains("operator")) {
+    } else if (event.target.classList.contains("operator")) {
         if (event.target.innerText === "=") {
             firstNumber = operate(operator, firstNumber, secondNumber);
-            secondNumber = "";
+            operator = "";
+            secondNumber = 0;
             display.innerText = firstNumber;
         } else {
             operator = event.target.innerText;
             console.log(operator);
         }
-    }
-
-    if (event.target.classList.contains("function")) {
+    } else if (event.target.classList.contains("function")) {
         if (event.target.innerText === "C") {
             clear();
         }
