@@ -70,8 +70,9 @@ table.addEventListener("click", (event) => {
         if (event.target.innerText === "=") {
             firstNumber = parseFloat(firstNumber);
             secondNumber = parseFloat(secondNumber);
-            let result = operate(operator, firstNumber, secondNumber);
-            display.innerText = result;
+            firstNumber = operate(operator, firstNumber, secondNumber);
+            secondNumber = "";
+            display.innerText = firstNumber;
         } else {
             operator = event.target.innerText;
             console.log(operator);
