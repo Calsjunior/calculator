@@ -59,11 +59,9 @@ table.addEventListener("click", (event) => {
             firstNumber = 0;
             firstNumber = firstNumber * 10 + parseFloat(event.target.innerText);
             display.innerText = firstNumber;
-            console.log(firstNumber);
         } else {
             secondNumber += secondNumber * 10 + parseFloat(event.target.innerText);
             display.innerText = secondNumber;
-            console.log(secondNumber);
         }
     } else if (event.target.classList.contains("operator")) {
         if (event.target.innerText === "=") {
@@ -78,7 +76,6 @@ table.addEventListener("click", (event) => {
             display.innerText = firstNumber;
         } else {
             operator = event.target.innerText;
-            console.log(operator);
         }
     } else if (event.target.classList.contains("function")) {
         if (event.target.innerText === "C") {
