@@ -63,7 +63,7 @@ table.addEventListener("click", (event) => {
             display.innerText = secondNumber;
         }
     } else if (event.target.classList.contains("operator")) {
-        if (event.target.innerText === "=") {
+        if (event.target.name === "equal") {
             firstNumber = operate(operator, firstNumber, secondNumber);
             operator = "";
             secondNumber = 0;
@@ -77,7 +77,7 @@ table.addEventListener("click", (event) => {
             operator = event.target.name;
         }
     } else if (event.target.classList.contains("function")) {
-        if (event.target.innerText === "C") {
+        if (event.target.name === "clear") {
             clear();
         }
     }
