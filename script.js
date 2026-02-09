@@ -55,7 +55,12 @@ const clear = function () {
 
 table.addEventListener("click", (event) => {
     if (event.target.classList.contains("number")) {
-        if (operator === "") {
+        if (firstNumber != undefined && operator === "equal" && secondNumber != undefined) {
+            let tempFirstNumber = parseFloat(event.target.innerText);
+            clear();
+            firstNumber = tempFirstNumber;
+            display.innerText = firstNumber;
+        } else if (operator === "") {
             firstNumber = firstNumber * 10 + parseFloat(event.target.innerText);
             display.innerText = firstNumber;
         } else {
@@ -65,8 +70,7 @@ table.addEventListener("click", (event) => {
     } else if (event.target.classList.contains("operator")) {
         if (event.target.name === "equal") {
             firstNumber = operate(operator, firstNumber, secondNumber);
-            operator = "";
-            secondNumber = 0;
+            operator = event.target.name;
             display.innerText = firstNumber;
         } else if (firstNumber != undefined && operator && secondNumber != undefined) {
             firstNumber = operate(operator, firstNumber, secondNumber);
