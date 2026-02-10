@@ -37,6 +37,10 @@ const clear = function () {
     display.innerText = "0";
 };
 
+const updateDisplay = function (number) {
+    display.innerText = number;
+};
+
 const evaluteNumbers = function (numberInput) {
     if (operator === null) {
         firstNumber += numberInput;
@@ -77,4 +81,6 @@ table.addEventListener("click", (event) => {
             }
             break;
     }
+
+    updateDisplay(valueToShow);
 });
