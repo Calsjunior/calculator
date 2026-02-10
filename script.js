@@ -1,9 +1,10 @@
 const display = document.querySelector(".display");
 const table = document.querySelector("table");
 
-let firstNumber = 0;
-let operator = "";
-let secondNumber = 0;
+let firstNumber = "";
+let operator = null;
+let secondNumber = "";
+let valueToShow = "";
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
@@ -30,30 +31,31 @@ const operate = function (operator, firstNumber, secondNumber) {
 };
 
 const clear = function () {
-    firstNumber = 0;
-    operator = "";
-    secondNumber = 0;
-    display.innerText = 0;
+    firstNumber = "";
+    operator = null;
+    secondNumber = "";
+    display.innerText = "0";
+};
+
+const evaluteNumbers = function (numberInput) {
+    if (operator === null) {
+        firstNumber += numberInput;
+        return firstNumber;
+    } else {
+        secondNumber += numberInput;
+        return secondNumber;
+    }
 };
 
 table.addEventListener("click", (event) => {
     const target = event.target;
     const action = target.dataset.type;
+    const numberInput = target.innerText;
+    const operatorInput = target.name;
 
     switch (action) {
         case "number":
-            if (firstNumber != undefined && operator === "equal" && secondNumber != undefined) {
-                let tempFirstNumber = parseFloat(event.target.innerText);
-                clear();
-                firstNumber = tempFirstNumber;
-                display.innerText = firstNumber;
-            } else if (operator === "") {
-                firstNumber = firstNumber * 10 + parseFloat(event.target.innerText);
-                display.innerText = firstNumber;
-            } else {
-                secondNumber = secondNumber * 10 + parseFloat(event.target.innerText);
-                display.innerText = secondNumber;
-            }
+            valueToShow = evaluteNumbers(numberInput);
             break;
         case "operator":
             if (event.target.name === "equal") {
