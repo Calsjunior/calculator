@@ -5,29 +5,12 @@ let firstNumber = 0;
 let operator = "";
 let secondNumber = 0;
 
-const add = function (firstNumber, secondNumber) {
-    return firstNumber + secondNumber;
-};
-
-const subtract = function (firstNumber, secondNumber) {
-    return firstNumber - secondNumber;
-};
-
-const multiply = function (firstNumber, secondNumber) {
-    return firstNumber * secondNumber;
-};
-
-const divide = function (firstNumber, secondNumber) {
-    return firstNumber / secondNumber;
-};
-
-const modulo = function (firstNumber, secondNumber) {
-    return firstNumber % secondNumber;
-};
-
-const root = function (firstNumber, secondNumber) {
-    return Math.pow(firstNumber, 1 / secondNumber);
-};
+const add = (a, b) => a + b;
+const subtract = (a, b) => a - b;
+const multiply = (a, b) => a * b;
+const divide = (a, b) => (b === 0 ? "Error" : a / b);
+const modulo = (a, b) => a % b;
+const root = (a, b) => Math.pow(a, 1 / b);
 
 const operate = function (operator, firstNumber, secondNumber) {
     switch (operator) {
