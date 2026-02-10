@@ -54,35 +54,39 @@ const clear = function () {
 };
 
 table.addEventListener("click", (event) => {
-    if (event.target.classList.contains("number")) {
-        if (firstNumber != undefined && operator === "equal" && secondNumber != undefined) {
-            let tempFirstNumber = parseFloat(event.target.innerText);
-            clear();
-            firstNumber = tempFirstNumber;
-            display.innerText = firstNumber;
-        } else if (operator === "") {
-            firstNumber = firstNumber * 10 + parseFloat(event.target.innerText);
-            display.innerText = firstNumber;
-        } else {
-            secondNumber = secondNumber * 10 + parseFloat(event.target.innerText);
-            display.innerText = secondNumber;
-        }
-    } else if (event.target.classList.contains("operator")) {
-        if (event.target.name === "equal") {
-            firstNumber = operate(operator, firstNumber, secondNumber);
-            operator = event.target.name;
-            display.innerText = firstNumber;
-        } else if (firstNumber != undefined && operator && secondNumber != undefined) {
-            firstNumber = operate(operator, firstNumber, secondNumber);
-            operator = event.target.name;
-            secondNumber = 0;
-            display.innerText = firstNumber;
-        } else {
-            operator = event.target.name;
-        }
-    } else if (event.target.classList.contains("function")) {
-        if (event.target.name === "clear") {
-            clear();
-        }
+    const target = event.target;
+    const action = target.dataset.type;
+
+    switch (action) {
+        case "number":
+            if (firstNumber != undefined && operator === "equal" && secondNumber != undefined) {
+                let tempFirstNumber = parseFloat(event.target.innerText);
+                clear();
+                firstNumber = tempFirstNumber;
+                display.innerText = firstNumber;
+            } else if (operator === "") {
+                firstNumber = firstNumber * 10 + parseFloat(event.target.innerText);
+                display.innerText = firstNumber;
+            } else {
+                secondNumber = secondNumber * 10 + parseFloat(event.target.innerText);
+                display.innerText = secondNumber;
+            }
+        case "operator":
+            if (event.target.name === "equal") {
+                firstNumber = operate(operator, firstNumber, secondNumber);
+                operator = event.target.name;
+                display.innerText = firstNumber;
+            } else if (firstNumber != undefined && operator && secondNumber != undefined) {
+                firstNumber = operate(operator, firstNumber, secondNumber);
+                operator = event.target.name;
+                secondNumber = 0;
+                display.innerText = firstNumber;
+            } else {
+                operator = event.target.name;
+            }
+        case "function":
+            if (event.target.name === "clear") {
+                clear();
+            }
     }
 });
