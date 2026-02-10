@@ -54,6 +54,7 @@ table.addEventListener("click", (event) => {
                 secondNumber = secondNumber * 10 + parseFloat(event.target.innerText);
                 display.innerText = secondNumber;
             }
+            break;
         case "operator":
             if (event.target.name === "equal") {
                 firstNumber = operate(operator, firstNumber, secondNumber);
@@ -67,9 +68,11 @@ table.addEventListener("click", (event) => {
             } else {
                 operator = event.target.name;
             }
+            break;
         case "function":
             if (event.target.name === "clear") {
                 clear();
             }
+            break;
     }
 });
