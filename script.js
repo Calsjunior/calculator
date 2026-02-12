@@ -34,7 +34,7 @@ const clear = function () {
     firstNumber = "";
     operator = null;
     secondNumber = "";
-    display.innerText = "0";
+    valueToShow = "0";
 };
 
 const updateDisplay = function (number) {
@@ -51,6 +51,21 @@ const evaluteNumbers = function (numberInput) {
     }
 };
 
+const handleOperators = function (operatorInput) {
+    if (operatorInput === "equal") {
+        firstNumber = parseFloat(firstNumber);
+        secondNumber = parseFloat(secondNumber);
+        const result = operate(operator, firstNumber, secondNumber);
+
+        // Clear everything so next operation does not overlap
+        clear();
+        firstNumber = result.toString();
+    } else {
+        operator = operatorInput;
+    }
+    return firstNumber;
+};
+
 table.addEventListener("click", (event) => {
     const target = event.target;
     const action = target.dataset.type;
@@ -62,23 +77,10 @@ table.addEventListener("click", (event) => {
             valueToShow = evaluteNumbers(numberInput);
             break;
         case "operator":
-            if (event.target.name === "equal") {
-                firstNumber = operate(operator, firstNumber, secondNumber);
-                operator = event.target.name;
-                display.innerText = firstNumber;
-            } else if (firstNumber != undefined && operator && secondNumber != undefined) {
-                firstNumber = operate(operator, firstNumber, secondNumber);
-                operator = event.target.name;
-                secondNumber = 0;
-                display.innerText = firstNumber;
-            } else {
-                operator = event.target.name;
-            }
+            valueToShow = handleOperators(operatorInput);
             break;
         case "function":
-            if (event.target.name === "clear") {
-                clear();
-            }
+            clear();
             break;
     }
 
