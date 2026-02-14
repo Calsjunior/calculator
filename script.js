@@ -53,6 +53,8 @@ const evaluteNumbers = function (numberInput) {
 
 const handleOperators = function (operatorInput) {
     if (operatorInput === "equal") {
+        if (operator == null) return firstNumber || "0";
+        if (secondNumber == "") return firstNumber;
         firstNumber = parseFloat(firstNumber);
         secondNumber = parseFloat(secondNumber);
         const result = operate(operator, firstNumber, secondNumber);
