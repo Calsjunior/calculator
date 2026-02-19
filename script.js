@@ -11,7 +11,6 @@ const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
 const divide = (a, b) => (b === 0 ? "Error" : a / b);
 const modulo = (a, b) => a % b;
-const root = (a, b) => Math.pow(a, 1 / b);
 
 const operate = function (operator, firstNumber, secondNumber) {
     switch (operator) {
@@ -25,8 +24,6 @@ const operate = function (operator, firstNumber, secondNumber) {
             return divide(firstNumber, secondNumber);
         case "modulo":
             return modulo(firstNumber, secondNumber);
-        case "root":
-            return root(firstNumber, secondNumber);
     }
 };
 

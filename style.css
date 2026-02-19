@@ -35,3 +35,12 @@ body {
     height: 80px;
     width: 80px;
 }
+
+.calculator-button[name="backspace"] {
+    display: flex;
+    align-items: center;
+}
+
+.calculator-button[name="backspace"] svg {
+    transform: scale(0.25);
+}
