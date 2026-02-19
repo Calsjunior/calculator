@@ -52,28 +52,18 @@ const evaluteNumbers = function (numberInput) {
 };
 
 const handleOperators = function (operatorInput) {
+    if (firstNumber !== "" && secondNumber !== "" && operator !== null) {
+        const result = operate(operator, parseFloat(firstNumber), parseFloat(secondNumber));
+        firstNumber = result.toString();
+        secondNumber = "";
+    }
+
     if (operatorInput === "equal") {
-        if (operator == null) return firstNumber || "0";
-        if (secondNumber == "") return firstNumber;
-        firstNumber = parseFloat(firstNumber);
-        secondNumber = parseFloat(secondNumber);
-        const result = operate(operator, firstNumber, secondNumber);
-
-        // Clear everything so next operation does not overlap
-        clear();
-        firstNumber = result.toString();
-    } else if (firstNumber && secondNumber && operator) {
-        firstNumber = parseFloat(firstNumber);
-        secondNumber = parseFloat(secondNumber);
-        const result = operate(operator, firstNumber, secondNumber);
-
-        clear();
-        operator = operatorInput;
-        firstNumber = result.toString();
+        operator == null;
     } else {
         operator = operatorInput;
     }
-    return firstNumber;
+    return firstNumber || "0";
 };
 
 table.addEventListener("click", (event) => {
