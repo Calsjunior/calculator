@@ -42,13 +42,17 @@ const updateDisplay = function (number) {
 };
 
 const evaluteNumbers = function (numberInput) {
+    if (valueToShow.includes(".") && numberInput == ".") {
+        return firstNumber;
+    }
+
     if (operator === null) {
         firstNumber += numberInput;
         return firstNumber;
-    } else {
-        secondNumber += numberInput;
-        return secondNumber;
     }
+
+    secondNumber += numberInput;
+    return secondNumber;
 };
 
 const handleOperators = function (operatorInput) {
