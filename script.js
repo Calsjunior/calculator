@@ -42,17 +42,23 @@ const updateDisplay = function (number) {
 };
 
 const evaluteNumbers = function (numberInput) {
-    if (valueToShow.includes(".") && numberInput == ".") {
-        return firstNumber;
+    let current = operator === null ? firstNumber : secondNumber;
+
+    if (numberInput === "." && current.includes(".")) return current;
+
+    if (current === "" && numberInput === ".") {
+        current = "0.";
+    } else {
+        current += numberInput;
     }
 
     if (operator === null) {
-        firstNumber += numberInput;
-        return firstNumber;
+        firstNumber = current;
+    } else {
+        secondNumber = current;
     }
 
-    secondNumber += numberInput;
-    return secondNumber;
+    return current;
 };
 
 const handleOperators = function (operatorInput) {
