@@ -49,6 +49,11 @@ const evaluteNumbers = function (numberInput) {
         return current;
     }
 
+    // FIX: properly implement a way to handle long numbers from input and during calculations
+    if (current.length > 12) {
+        return current;
+    }
+
     if (current === "0" && numberInput !== ".") {
         current = numberInput;
     } else {
