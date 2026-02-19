@@ -46,7 +46,7 @@ const evaluteNumbers = function (numberInput) {
         return current;
     }
 
-    // FIX: properly implement a way to handle long numbers from input and during calculations
+    // TODO: properly implement a way to handle long numbers from input and during calculations
     if (current.length > 12) {
         return current;
     }
@@ -81,6 +81,32 @@ const handleOperators = function (operatorInput) {
     return firstNumber || "0";
 };
 
+const handleFunctions = function (functionInput) {
+    if (functionInput === "clear") {
+        clear();
+        return;
+    }
+
+    // TODO: helper function to determine current number
+    if (functionInput === "backspace") {
+        let current = operator === null ? firstNumber : secondNumber;
+
+        if (current.length <= 1 || current === "0" || current === "-") {
+            current = "0";
+        } else {
+            current = current.slice(0, -1);
+        }
+
+        if (operator === null) {
+            firstNumber = current;
+        } else {
+            secondNumber = current;
+        }
+
+        return current;
+    }
+};
+
 table.addEventListener("click", (event) => {
     const target = event.target;
     const action = target.dataset.type;
@@ -95,7 +121,7 @@ table.addEventListener("click", (event) => {
             valueToShow = handleOperators(operatorInput);
             break;
         case "function":
-            clear();
+            valueToShow = handleFunctions(operatorInput);
             break;
     }
 
