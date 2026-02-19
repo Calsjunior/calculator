@@ -6,6 +6,19 @@ let operator = null;
 let secondNumber = "";
 let valueToShow = "0";
 
+const keyMap = {
+    Enter: { type: "operator", value: "equal" },
+    "=": { type: "operator", value: "equal" },
+    c: { type: "function", value: "clear" },
+    Backspace: { type: "function", value: "backspace" },
+    ".": { type: "number", value: "." },
+    "+": { type: "operator", value: "add" },
+    "-": { type: "operator", value: "subtract" },
+    "*": { type: "operator", value: "multiply" },
+    "/": { type: "operator", value: "divide" },
+    "%": { type: "operator", value: "modulo" },
+};
+
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
@@ -129,4 +142,17 @@ const processInput = function (action, inputValue, textContent) {
 table.addEventListener("click", (event) => {
     const target = event.target;
     processInput(target.dataset.type, target.name, target.innerText);
+});
+
+document.addEventListener("keydown", (event) => {
+    const key = event.key;
+    if (/[0-9]/.test(key)) {
+        processInput("number", key, key);
+        return;
+    }
+
+    if (keyMap[key]) {
+        processInput(keyMap[key].type, keyMap[key].value, keyMap[key].value);
+        return;
+    }
 });
