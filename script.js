@@ -38,6 +38,9 @@ const updateDisplay = function (number) {
     display.innerText = number;
 };
 
+// TODO:
+const getCurrentNumber = 0;
+
 const evaluteNumbers = function (numberInput) {
     let current = operator === null ? firstNumber : secondNumber;
 
@@ -110,18 +113,17 @@ const handleFunctions = function (functionInput) {
 table.addEventListener("click", (event) => {
     const target = event.target;
     const action = target.dataset.type;
-    const numberInput = target.innerText;
-    const operatorInput = target.name;
+    const inputValue = target.name;
 
     switch (action) {
         case "number":
-            valueToShow = evaluteNumbers(numberInput);
+            valueToShow = evaluteNumbers(target.innerText);
             break;
         case "operator":
-            valueToShow = handleOperators(operatorInput);
+            valueToShow = handleOperators(inputValue);
             break;
         case "function":
-            valueToShow = handleFunctions(operatorInput);
+            valueToShow = handleFunctions(inputValue);
             break;
     }
 
