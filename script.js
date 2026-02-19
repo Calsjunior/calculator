@@ -62,6 +62,14 @@ const handleOperators = function (operatorInput) {
         // Clear everything so next operation does not overlap
         clear();
         firstNumber = result.toString();
+    } else if (firstNumber && secondNumber && operator) {
+        firstNumber = parseFloat(firstNumber);
+        secondNumber = parseFloat(secondNumber);
+        const result = operate(operator, firstNumber, secondNumber);
+
+        clear();
+        operator = operatorInput;
+        firstNumber = result.toString();
     } else {
         operator = operatorInput;
     }
