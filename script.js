@@ -87,7 +87,7 @@ const handleOperators = function (operatorInput) {
 const handleFunctions = function (functionInput) {
     if (functionInput === "clear") {
         clear();
-        return;
+        return firstNumber;
     }
 
     // TODO: helper function to determine current number
@@ -110,14 +110,10 @@ const handleFunctions = function (functionInput) {
     }
 };
 
-table.addEventListener("click", (event) => {
-    const target = event.target;
-    const action = target.dataset.type;
-    const inputValue = target.name;
-
+const processInput = function (action, inputValue, textContent) {
     switch (action) {
         case "number":
-            valueToShow = evaluteNumbers(target.innerText);
+            valueToShow = evaluteNumbers(textContent);
             break;
         case "operator":
             valueToShow = handleOperators(inputValue);
@@ -128,4 +124,9 @@ table.addEventListener("click", (event) => {
     }
 
     updateDisplay(valueToShow);
+};
+
+table.addEventListener("click", (event) => {
+    const target = event.target;
+    processInput(target.dataset.type, target.name, target.innerText);
 });
