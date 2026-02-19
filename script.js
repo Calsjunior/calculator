@@ -1,10 +1,10 @@
 const display = document.querySelector(".display");
 const table = document.querySelector("table");
 
-let firstNumber = "";
+let firstNumber = "0";
 let operator = null;
 let secondNumber = "";
-let valueToShow = "";
+let valueToShow = "0";
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
@@ -31,7 +31,7 @@ const operate = function (operator, firstNumber, secondNumber) {
 };
 
 const clear = function () {
-    firstNumber = "";
+    firstNumber = "0";
     operator = null;
     secondNumber = "";
     valueToShow = "0";
@@ -44,10 +44,13 @@ const updateDisplay = function (number) {
 const evaluteNumbers = function (numberInput) {
     let current = operator === null ? firstNumber : secondNumber;
 
-    if (numberInput === "." && current.includes(".")) return current;
+    // Prevents multiple dots
+    if (numberInput === "." && current.includes(".")) {
+        return current;
+    }
 
-    if (current === "" && numberInput === ".") {
-        current = "0.";
+    if (current === "0" && numberInput !== ".") {
+        current = numberInput;
     } else {
         current += numberInput;
     }
@@ -69,7 +72,7 @@ const handleOperators = function (operatorInput) {
     }
 
     if (operatorInput === "equal") {
-        operator == null;
+        operator = null;
     } else {
         operator = operatorInput;
     }
