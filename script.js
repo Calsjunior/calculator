@@ -84,6 +84,8 @@ const createCalculator = (() => {
                 parseFloat(state.firstNumber),
                 parseFloat(state.secondNumber),
             );
+
+            // Prevents precision loss when converting to string
             state.firstNumber = (Math.round(result * 1e10) / 1e10).toString();
             state.secondNumber = "";
         }
@@ -91,6 +93,10 @@ const createCalculator = (() => {
         state.operator = inputOperator === "equal" ? null : inputOperator;
     };
 
+    /**
+     * Executes non-arithmetic operations.
+     * @param {string} inputFunction - The type of function to execute (e.g., "clear").
+     */
     const processFunctions = (inputFunction) => {
         if (inputFunction === "clear") {
             state = { firstNumber: "0", secondNumber: "", operator: null };
