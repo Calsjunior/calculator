@@ -1,5 +1,5 @@
 const createCalculator = (() => {
-    const state = {
+    let state = {
         firstNumber: "0",
         secondNumber: "0",
         operator: null,
@@ -24,6 +24,39 @@ const createCalculator = (() => {
     const getCurrentNumber = () => {
         state.operator === null ? state.firstNumber : state.secondNumber;
     };
+
+    const processNumber = (inputNum) => {
+        let currentNum = getCurrentNumber();
+        if (inputNum === "." && currentNum.includes(".")) return currentNum;
+
+        currentNum = currentNum === "0" && inputNum !== "." ? inputNum : currentNum + inputNum;
+        setCurrentNumber(currentNum);
+    };
+
+    const processOperator = (inputOperator) => {
+        if (state.firstNumber !== "" && state.secondNumber !== "" && state.operator !== null) {
+            const result = operate(state.operator, parseFloat(state.firstNumber), parseFloat(state.secondNumber));
+            state.firstNumber = (Math.round(result * 1e10) / 1e10).toString();
+            state.secondNumber = "";
+        }
+
+        state.operator = inputOperator === "equal" ? null : inputOperator;
+    };
+
+    const processFunctions = (inputFunction) => {
+        let currentNum = getCurrentNumber();
+        if (inputFunction === "clear") {
+            state = { firstNumber: "0", secondNumber: "", operator: null };
+        } else if (inputFunction === "backspace") {
+            currentNum = currentNum.length <= 1 || currentNum === "0" ? "0" : currentNum.slice(0, -1);
+        } else if (inputFunction === "plusminus") {
+            currentNum = (parseFloat(currentNum) * -1).toString();
+        }
+
+        setCurrentNumber(currentNum);
+    };
+
+    return {};
 })();
 
 const result = document.querySelector(".calc__result");
