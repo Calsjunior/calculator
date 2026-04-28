@@ -100,6 +100,7 @@ button {
     padding: 22px;
     font-size: 1.2rem;
     color: white;
+    touch-action: manipulation;
     cursor: pointer;
     background-color: var(--_bg);
     border: none;
