@@ -5,6 +5,14 @@ const createCalculator = (() => {
         operator: null,
     };
 
+    const operatorSymbols = {
+        add: "+",
+        subtract: "-",
+        multiply: "*",
+        divide: "÷",
+        modulo: "%",
+    };
+
     const operations = {
         add: (a, b) => a + b,
         subtract: (a, b) => a - b,
@@ -23,6 +31,12 @@ const createCalculator = (() => {
 
     const getCurrentNumber = () => {
         return state.operator === null ? state.firstNumber : state.secondNumber;
+    };
+
+    const getFullExpression = () => {
+        const symbol = operatorSymbols[state.operator];
+        if (!state.operator) return state.firstNumber;
+        return `${state.firstNumber} ${symbol} ${state.secondNumber}`;
     };
 
     const processNumber = (inputNum) => {
@@ -71,7 +85,7 @@ const createCalculator = (() => {
                     processFunctions(value);
                     break;
             }
-            return getCurrentNumber();
+            return getFullExpression();
         },
     };
 })();
@@ -94,7 +108,7 @@ const createCalculatorApp = (() => {
     };
 
     const updateDisplay = (valueToShow) => {
-        display.innerText = valueToShow.length > 10 ? parseFloat(valueToShow).toExponential(5) : valueToShow;
+        display.innerText = valueToShow;
     };
 
     const eventStart = () => {
@@ -108,9 +122,9 @@ const createCalculatorApp = (() => {
         document.addEventListener("keydown", (event) => {
             const key = event.key;
             if (/[0-9]/.test(key)) {
-                valueToShow = createCalculator.processInput("number", key);
+                valueToShow = createCalculator.processAllInputs("number", key);
             } else if (keyMap[key]) {
-                valueToShow = createCalculator.processInput(keyMap[key].type, keyMap[key].value);
+                valueToShow = createCalculator.processAllInputs(keyMap[key].type, keyMap[key].value);
             }
 
             updateDisplay(valueToShow);
