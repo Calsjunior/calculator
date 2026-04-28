@@ -27,7 +27,7 @@ const createCalculator = (() => {
 
     const processNumber = (inputNum) => {
         let currentNum = getCurrentNumber();
-        if (inputNum === "." && currentNum.includes(".")) return currentNum;
+        if (inputNum === "." && currentNum.includes(".")) return;
 
         currentNum = currentNum === "0" && inputNum !== "." ? inputNum : currentNum + inputNum;
         setCurrentNumber(currentNum);
