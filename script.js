@@ -69,6 +69,13 @@ const createCalculator = (() => {
         setCurrentNumber(currentNum);
     };
 
+    /**
+     * Performs the arithmetic calculation based on current state and updates the operator.
+     *
+     * If both numbers and an operator exists, it executes the math, updates
+     * the first number with the result, and reset the second number.
+     * @param {string} inputOperator - The key operation (e.g., "add", "subtract"...)
+     */
     const processOperator = (inputOperator) => {
         if (state.firstNumber !== "" && state.secondNumber !== "" && state.operator !== null) {
             const result = operatorConfig[state.operator].calc(
