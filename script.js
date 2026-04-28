@@ -110,14 +110,25 @@ const createCalculator = (() => {
             return;
         }
 
-        let currentNum = getCurrentNumber();
         if (inputFunction === "backspace") {
-            currentNum = currentNum.length <= 1 || currentNum === "0" ? "0" : currentNum.slice(0, -1);
-        } else if (inputFunction === "plusminus") {
-            if (currentNum === "Error" || !currentNum) return;
-            currentNum = (parseFloat(currentNum) * -1).toString();
+            if (state.secondNumber !== "") {
+                state.secondNumber = state.secondNumber.slice(0, -1);
+            } else if (state.operator) {
+                state.operator = null;
+            } else {
+                state.firstNumber = state.firstNumber > 1 ? state.firstNumber.slice(0, -1) : "0";
+            }
+            return;
         }
-        setCurrentNumber(currentNum);
+
+        if (inputFunction === "plusminus") {
+            let currentNum = getCurrentNumber();
+            if (currentNum === "Error" || !currentNum) return;
+
+            currentNum = (parseFloat(currentNum) * -1).toString();
+            setCurrentNumber(currentNum);
+            return;
+        }
     };
 
     return {
