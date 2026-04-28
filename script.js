@@ -35,7 +35,7 @@ const createCalculator = (() => {
 
     const processOperator = (inputOperator) => {
         if (state.firstNumber !== "" && state.secondNumber !== "" && state.operator !== null) {
-            const result = operate(state.operator, parseFloat(state.firstNumber), parseFloat(state.secondNumber));
+            const result = operations[state.operator](parseFloat(state.firstNumber), parseFloat(state.secondNumber));
             state.firstNumber = (Math.round(result * 1e10) / 1e10).toString();
             state.secondNumber = "";
         }
