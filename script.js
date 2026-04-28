@@ -20,17 +20,10 @@ const createCalculator = (() => {
      */
     const formatNumber = (currentNum) => {
         if (!currentNum) return currentNum;
-
-        // Split the string number into two between decimal point.
-        // If used without splitting, parseFloat will hide the decimal point on
-        // input and prevent user from inputing more that 3 values after
-        // decimal point.
-        currentNum = currentNum.split(".");
-        const integerPart = currentNum[0];
-        const decimalPart = currentNum[1];
-
-        const formattedInteger = parseFloat(integerPart).toLocaleString("en-US");
-        return decimalPart !== undefined ? `${formattedInteger}.${decimalPart}` : formattedInteger;
+        // Use regex to add commas every 3 digits
+        // This keeps the input as a string, avoiding parseFloat precision issues.
+        // https://stackoverflow.com/questions/2901102/how-can-i-format-a-number-with-commas-as-thousands-separators#2901298
+        return currentNum.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
     };
 
     /**
