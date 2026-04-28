@@ -13,9 +13,18 @@ const createCalculator = (() => {
         modulo: { symbol: "%", key: "%", calc: (a, b) => a % b },
     };
 
+    /**
+     * Format state numbers with commas as thousands separator.
+     * @param   {string} currentNum - The string number to format.
+     * @returns {string} The formatted number with decimal value if exist.
+     */
     const formatNumber = (currentNum) => {
         if (!currentNum) return currentNum;
 
+        // Split the string number into two between decimal point.
+        // If used without splitting, parseFloat will hide the decimal point on
+        // input and prevent user from inputing more that 3 values after
+        // decimal point.
         currentNum = currentNum.split(".");
         const integerPart = currentNum[0];
         const decimalPart = currentNum[1];
