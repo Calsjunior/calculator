@@ -67,7 +67,8 @@ const createCalculator = (() => {
         let currentNum = getCurrentNumber();
         if (inputNum === "." && currentNum.includes(".")) return;
 
-        currentNum = currentNum === "0" && inputNum !== "." ? inputNum : currentNum + inputNum;
+        currentNum =
+            (currentNum === "0" && inputNum !== ".") || currentNum === "Error" ? inputNum : currentNum + inputNum;
         setCurrentNumber(currentNum);
     };
 
