@@ -94,7 +94,7 @@ const createCalculatorApp = (() => {
     };
 
     const updateDisplay = (valueToShow) => {
-        display.innerText = valueToShow.length > 10 ? parseFloat(val).toExponential(5) : valueToShow;
+        display.innerText = valueToShow.length > 10 ? parseFloat(valueToShow).toExponential(5) : valueToShow;
     };
 
     const eventStart = () => {
