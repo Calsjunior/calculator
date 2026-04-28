@@ -108,6 +108,7 @@ const createCalculator = (() => {
         if (inputFunction === "backspace") {
             currentNum = currentNum.length <= 1 || currentNum === "0" ? "0" : currentNum.slice(0, -1);
         } else if (inputFunction === "plusminus") {
+            if (currentNum === "Error" || !currentNum) return;
             currentNum = (parseFloat(currentNum) * -1).toString();
         }
         setCurrentNumber(currentNum);
