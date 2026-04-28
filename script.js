@@ -143,19 +143,22 @@ const createCalculatorApp = (() => {
         keypad.addEventListener("click", (event) => {
             const target = event.target;
             if (!target.dataset.type) return;
-            valueToShow = createCalculator.processAllInputs(target.dataset.type, target.value);
+            const valueToShow = createCalculator.processAllInputs(target.dataset.type, target.value);
             updateDisplay(valueToShow);
         });
 
         document.addEventListener("keydown", (event) => {
             const key = event.key;
+            let valueToShow;
             if (/[0-9]/.test(key)) {
                 valueToShow = createCalculator.processAllInputs("number", key);
             } else if (keyMap[key]) {
                 valueToShow = createCalculator.processAllInputs(keyMap[key].type, keyMap[key].value);
             }
 
-            updateDisplay(valueToShow);
+            if (valueToShow) {
+                updateDisplay(valueToShow);
+            }
         });
     };
 
