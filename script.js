@@ -76,36 +76,53 @@ const createCalculator = (() => {
     };
 })();
 
-const result = document.querySelector(".calc__result");
-const keypad = document.querySelector(".calc__keypad");
+const createCalculatorApp = (() => {
+    const display = document.querySelector(".calc__result");
+    const keypad = document.querySelector(".calc__keypad");
 
-const keyMap = {
-    Enter: { type: "operator", value: "equal" },
-    "=": { type: "operator", value: "equal" },
-    c: { type: "function", value: "clear" },
-    Backspace: { type: "function", value: "backspace" },
-    ".": { type: "number", value: "." },
-    "+": { type: "operator", value: "add" },
-    "-": { type: "operator", value: "subtract" },
-    "*": { type: "operator", value: "multiply" },
-    "/": { type: "operator", value: "divide" },
-    "%": { type: "operator", value: "modulo" },
-};
+    const keyMap = {
+        Enter: { type: "operator", value: "equal" },
+        "=": { type: "operator", value: "equal" },
+        c: { type: "function", value: "clear" },
+        Backspace: { type: "function", value: "backspace" },
+        ".": { type: "number", value: "." },
+        "+": { type: "operator", value: "add" },
+        "-": { type: "operator", value: "subtract" },
+        "*": { type: "operator", value: "multiply" },
+        "/": { type: "operator", value: "divide" },
+        "%": { type: "operator", value: "modulo" },
+    };
 
-keypad.addEventListener("click", (event) => {
-    const target = event.target;
-    if (!target.dataset.type) return;
-    valueToShow = processInput(target.dataset.type, target.value);
-    updateDisplay(valueToShow);
-});
+    const updateDisplay = (valueToShow) => {
+        display.innerText = valueToShow.length > 10 ? parseFloat(val).toExponential(5) : valueToShow;
+    };
 
-document.addEventListener("keydown", (event) => {
-    const key = event.key;
-    if (/[0-9]/.test(key)) {
-        valueToShow = processInput("number", key);
-    } else if (keyMap[key]) {
-        valueToShow = processInput(keyMap[key].type, keyMap[key].value);
-    }
+    const eventStart = () => {
+        keypad.addEventListener("click", (event) => {
+            const target = event.target;
+            if (!target.dataset.type) return;
+            valueToShow = createCalculator.processAllInputs(target.dataset.type, target.value);
+            updateDisplay(valueToShow);
+        });
 
-    updateDisplay(valueToShow);
-});
+        document.addEventListener("keydown", (event) => {
+            const key = event.key;
+            if (/[0-9]/.test(key)) {
+                valueToShow = createCalculator.processInput("number", key);
+            } else if (keyMap[key]) {
+                valueToShow = createCalculator.processInput(keyMap[key].type, keyMap[key].value);
+            }
+
+            updateDisplay(valueToShow);
+        });
+    };
+
+    return {
+        init() {
+            eventStart();
+            updateDisplay("0");
+        },
+    };
+})(createCalculator);
+
+createCalculatorApp.init();
