@@ -1,7 +1,7 @@
 const createCalculator = (() => {
     let state = {
         firstNumber: "0",
-        secondNumber: "0",
+        secondNumber: "",
         operator: null,
     };
 
@@ -22,7 +22,7 @@ const createCalculator = (() => {
     };
 
     const getCurrentNumber = () => {
-        state.operator === null ? state.firstNumber : state.secondNumber;
+        return state.operator === null ? state.firstNumber : state.secondNumber;
     };
 
     const processNumber = (inputNum) => {
@@ -44,19 +44,36 @@ const createCalculator = (() => {
     };
 
     const processFunctions = (inputFunction) => {
-        let currentNum = getCurrentNumber();
         if (inputFunction === "clear") {
             state = { firstNumber: "0", secondNumber: "", operator: null };
-        } else if (inputFunction === "backspace") {
+            return;
+        }
+
+        let currentNum = getCurrentNumber();
+        if (inputFunction === "backspace") {
             currentNum = currentNum.length <= 1 || currentNum === "0" ? "0" : currentNum.slice(0, -1);
         } else if (inputFunction === "plusminus") {
             currentNum = (parseFloat(currentNum) * -1).toString();
         }
-
         setCurrentNumber(currentNum);
     };
 
-    return {};
+    return {
+        processAllInputs(type, value) {
+            switch (type) {
+                case "number":
+                    processNumber(value);
+                    break;
+                case "operator":
+                    processOperator(value);
+                    break;
+                case "function":
+                    processFunctions(value);
+                    break;
+            }
+            return getCurrentNumber();
+        },
+    };
 })();
 
 const result = document.querySelector(".calc__result");
