@@ -85,8 +85,9 @@ const createCalculator = (() => {
                 parseFloat(state.secondNumber),
             );
 
-            // Prevents precision loss when converting to string
-            state.firstNumber = (Math.round(result * 1e10) / 1e10).toString();
+            // (Math.round(result * 1e10) / 1e10).toString() prevents precision
+            // loss when converting to string
+            state.firstNumber = result === "Error" ? result : (Math.round(result * 1e10) / 1e10).toString();
             state.secondNumber = "";
         }
 
