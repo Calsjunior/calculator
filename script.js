@@ -27,8 +27,8 @@ const createCalculator = (() => {
     };
 
     /**
-     * Updates state numbers to the current input string number.
-     * @param {string} currentNum - The input string number to set the state numbers to.
+     * Assigns the input value to the appropriate operand in the state.
+     * @param {string} currentNum - The numeric string value to store.
      */
     const setCurrentNumber = (currentNum) => {
         if (state.operator === null) {
@@ -39,14 +39,16 @@ const createCalculator = (() => {
     };
 
     /**
-     * @returns {string} The state number based on the state operator's existence.
+     * Retrieves the operand that is being modified.
+     * @returns {string} The active numeric string (firstNumber or secondNumber).
      */
     const getCurrentNumber = () => {
         return state.operator === null ? state.firstNumber : state.secondNumber;
     };
 
     /**
-     * @returns {string} The complete math expression of user's input.
+     * Generates a formatted string representing the full calculation.
+     * @returns {string} The complete math expression for display (e.g., "1,234 + 56").
      */
     const getFullExpression = () => {
         const formattedFirst = formatNumber(state.firstNumber);
