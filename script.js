@@ -13,6 +13,17 @@ const createCalculator = (() => {
         modulo: { symbol: "%", key: "%", calc: (a, b) => a % b },
     };
 
+    const formatNumber = (currentNum) => {
+        if (!currentNum) return currentNum;
+
+        currentNum = currentNum.split(".");
+        const integerPart = currentNum[0];
+        const decimalPart = currentNum[1];
+
+        const formattedInteger = parseFloat(integerPart).toLocaleString("en-US");
+        return decimalPart !== undefined ? `${formattedInteger}.${decimalPart}` : formattedInteger;
+    };
+
     const setCurrentNumber = (currentNum) => {
         if (state.operator === null) {
             state.firstNumber = currentNum;
@@ -26,9 +37,12 @@ const createCalculator = (() => {
     };
 
     const getFullExpression = () => {
-        if (!state.operator) return state.firstNumber;
+        const formattedFirst = formatNumber(state.firstNumber);
+        if (!state.operator) return formattedFirst;
+
         const symbol = operatorConfig[state.operator].symbol;
-        return `${state.firstNumber} ${symbol} ${state.secondNumber}`;
+        const formattedSecond = formatNumber(state.secondNumber);
+        return `${formattedFirst} ${symbol} ${formattedSecond}`;
     };
 
     const processNumber = (inputNum) => {
