@@ -1,10 +1,33 @@
+const createCalculator = (() => {
+    const state = {
+        firstNumber: "0",
+        secondNumber: "0",
+        operator: null,
+    };
+
+    const operations = {
+        add: (a, b) => a + b,
+        subtract: (a, b) => a - b,
+        multiply: (a, b) => a * b,
+        divide: (a, b) => (b === 0 ? "Error" : a / b),
+        modulo: (a, b) => a % b,
+    };
+
+    const setCurrentNumber = (currentNum) => {
+        if (state.operator === null) {
+            state.firstNumber = currentNum;
+        } else {
+            state.secondNumber = currentNum;
+        }
+    };
+
+    const getCurrentNumber = () => {
+        state.operator === null ? state.firstNumber : state.secondNumber;
+    };
+})();
+
 const result = document.querySelector(".calc__result");
 const keypad = document.querySelector(".calc__keypad");
-
-let firstNumber = "0";
-let operator = null;
-let secondNumber = "";
-let valueToShow = "0";
 
 const keyMap = {
     Enter: { type: "operator", value: "equal" },
@@ -17,40 +40,6 @@ const keyMap = {
     "*": { type: "operator", value: "multiply" },
     "/": { type: "operator", value: "divide" },
     "%": { type: "operator", value: "modulo" },
-};
-
-const add = (a, b) => a + b;
-const subtract = (a, b) => a - b;
-const multiply = (a, b) => a * b;
-const divide = (a, b) => (b === 0 ? "Error" : a / b);
-const modulo = (a, b) => a % b;
-
-const operate = (operator, firstNumber, secondNumber) => {
-    switch (operator) {
-        case "add":
-            return add(firstNumber, secondNumber);
-        case "subtract":
-            return subtract(firstNumber, secondNumber);
-        case "multiply":
-            return multiply(firstNumber, secondNumber);
-        case "divide":
-            return divide(firstNumber, secondNumber);
-        case "modulo":
-            return modulo(firstNumber, secondNumber);
-    }
-};
-
-const getCurrentNumber = () => {
-    const current = operator === null ? firstNumber : secondNumber;
-    return current;
-};
-
-const setCurrentNumber = (current) => {
-    if (operator === null) {
-        firstNumber = current;
-    } else {
-        secondNumber = current;
-    }
 };
 
 const clear = () => {
