@@ -33,6 +33,10 @@ const createCalculator = (() => {
         return decimalPart !== undefined ? `${formattedInteger}.${decimalPart}` : formattedInteger;
     };
 
+    /**
+     * Update state numbers to the current input string number.
+     * @param {string} currentNum - The input string number to set the state numbers to.
+     */
     const setCurrentNumber = (currentNum) => {
         if (state.operator === null) {
             state.firstNumber = currentNum;
@@ -41,10 +45,16 @@ const createCalculator = (() => {
         }
     };
 
+    /**
+     * @returns {string} The state number based on the state operator's existence.
+     */
     const getCurrentNumber = () => {
         return state.operator === null ? state.firstNumber : state.secondNumber;
     };
 
+    /**
+     * @returns {string} The complete math expression of user's input.
+     */
     const getFullExpression = () => {
         const formattedFirst = formatNumber(state.firstNumber);
         if (!state.operator) return formattedFirst;
