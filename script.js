@@ -5,20 +5,12 @@ const createCalculator = (() => {
         operator: null,
     };
 
-    const operatorSymbols = {
-        add: "+",
-        subtract: "-",
-        multiply: "*",
-        divide: "÷",
-        modulo: "%",
-    };
-
-    const operations = {
-        add: (a, b) => a + b,
-        subtract: (a, b) => a - b,
-        multiply: (a, b) => a * b,
-        divide: (a, b) => (b === 0 ? "Error" : a / b),
-        modulo: (a, b) => a % b,
+    const operatorConfig = {
+        add: { symbol: "+", key: "+", calc: (a, b) => a + b },
+        subtract: { symbol: "-", key: "-", calc: (a, b) => a - b },
+        multiply: { symbol: "×", key: "*", calc: (a, b) => a * b },
+        divide: { symbol: "÷", key: "/", calc: (a, b) => (b === 0 ? "Error" : a / b) },
+        modulo: { symbol: "%", key: "%", calc: (a, b) => a % b },
     };
 
     const setCurrentNumber = (currentNum) => {
@@ -34,8 +26,8 @@ const createCalculator = (() => {
     };
 
     const getFullExpression = () => {
-        const symbol = operatorSymbols[state.operator];
         if (!state.operator) return state.firstNumber;
+        const symbol = operatorConfig[state.operator].symbol;
         return `${state.firstNumber} ${symbol} ${state.secondNumber}`;
     };
 
@@ -49,7 +41,10 @@ const createCalculator = (() => {
 
     const processOperator = (inputOperator) => {
         if (state.firstNumber !== "" && state.secondNumber !== "" && state.operator !== null) {
-            const result = operations[state.operator](parseFloat(state.firstNumber), parseFloat(state.secondNumber));
+            const result = operatorConfig[state.operator].calc(
+                parseFloat(state.firstNumber),
+                parseFloat(state.secondNumber),
+            );
             state.firstNumber = (Math.round(result * 1e10) / 1e10).toString();
             state.secondNumber = "";
         }
