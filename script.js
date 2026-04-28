@@ -14,7 +14,7 @@ const createCalculator = (() => {
     };
 
     /**
-     * Format state numbers with commas as thousands separator.
+     * Formats state numbers with commas as thousands separator.
      * @param   {string} currentNum - The string number to format.
      * @returns {string} The formatted number with decimal value if exist.
      */
@@ -27,7 +27,7 @@ const createCalculator = (() => {
     };
 
     /**
-     * Update state numbers to the current input string number.
+     * Updates state numbers to the current input string number.
      * @param {string} currentNum - The input string number to set the state numbers to.
      */
     const setCurrentNumber = (currentNum) => {
@@ -57,6 +57,10 @@ const createCalculator = (() => {
         return `${formattedFirst} ${symbol} ${formattedSecond}`;
     };
 
+    /**
+     * Prevents duplicate decimal point and updates state numbers with new input.
+     * @param {string} inputNum - The string number that user just input.
+     */
     const processNumber = (inputNum) => {
         let currentNum = getCurrentNumber();
         if (inputNum === "." && currentNum.includes(".")) return;
