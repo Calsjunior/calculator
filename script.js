@@ -13,6 +13,29 @@ const createCalculator = (() => {
         modulo: { symbol: "%", key: "%", calc: (a, b) => a % b },
     };
 
+    const functionMap = {
+        clear: () => {
+            state = { firstNumber: "0", secondNumber: "", operator: null };
+        },
+        backspace: () => {
+            if (state.secondNumber !== "") {
+                state.secondNumber = state.secondNumber.slice(0, -1);
+                return;
+            }
+
+            if (state.operator) {
+                state.operator = null;
+            }
+
+            state.firstNumber = state.firstNumber > 1 ? state.firstNumber.slice(0, -1) : "0";
+        },
+        plusminus: () => {
+            const currentNum = getCurrentNumber();
+            if (currentNum === "Error" || !currentNum) return;
+            setCurrentNumber((parseFloat(currentNum) * -1).toString());
+        },
+    };
+
     /**
      * Formats state numbers with commas as thousands separator.
      * @param   {string} currentNum - The string number to format.
@@ -102,47 +125,26 @@ const createCalculator = (() => {
 
     /**
      * Executes non-arithmetic operations.
+     *
+     * Utilizes functionMap as a lookup table to find which function to execute.
      * @param {string} inputFunction - The type of function to execute (e.g., "clear").
      */
     const processFunctions = (inputFunction) => {
-        if (inputFunction === "clear") {
-            state = { firstNumber: "0", secondNumber: "", operator: null };
-            return;
+        if (functionMap[inputFunction]) {
+            functionMap[inputFunction]();
         }
+    };
 
-        if (inputFunction === "backspace") {
-            if (state.secondNumber !== "") {
-                state.secondNumber = state.secondNumber.slice(0, -1);
-            } else if (state.operator) {
-                state.operator = null;
-            } else {
-                state.firstNumber = state.firstNumber > 1 ? state.firstNumber.slice(0, -1) : "0";
-            }
-            return;
-        }
-
-        if (inputFunction === "plusminus") {
-            let currentNum = getCurrentNumber();
-            if (currentNum === "Error" || !currentNum) return;
-
-            currentNum = (parseFloat(currentNum) * -1).toString();
-            setCurrentNumber(currentNum);
-            return;
-        }
+    const inputProcess = {
+        number: processNumber,
+        operator: processOperator,
+        function: processFunctions,
     };
 
     return {
         processAllInputs(type, value) {
-            switch (type) {
-                case "number":
-                    processNumber(value);
-                    break;
-                case "operator":
-                    processOperator(value);
-                    break;
-                case "function":
-                    processFunctions(value);
-                    break;
+            if (inputProcess[type]) {
+                inputProcess[type](value);
             }
             return getFullExpression();
         },
