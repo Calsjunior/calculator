@@ -38,11 +38,16 @@ const createCalculator = (() => {
 
     /**
      * Formats state numbers with commas as thousands separator.
-     * @param   {string} currentNum - The string number to format.
+     * @param   {string} currentNum - The numeric string to format.
+     * @param   {bool}   isSecondNumber - To indicate if currentNum is the second number.
      * @returns {string} The formatted number with decimal value if exist.
      */
-    const formatNumber = (currentNum) => {
+    const formatNumber = (currentNum, isSecondNumber = false) => {
         if (!currentNum) return currentNum;
+
+        if (isSecondNumber && currentNum.includes("-")) {
+            currentNum = `(${currentNum})`;
+        }
         // Use regex to add commas every 3 digits
         // This keeps the input as a string, avoiding parseFloat precision issues.
         // https://stackoverflow.com/questions/2901102/how-can-i-format-a-number-with-commas-as-thousands-separators#2901298
@@ -74,11 +79,11 @@ const createCalculator = (() => {
      * @returns {string} The complete math expression for display (e.g., "1,234 + 56").
      */
     const getFullExpression = () => {
-        const formattedFirst = formatNumber(state.firstNumber);
+        const formattedFirst = formatNumber(state.firstNumber, false);
         if (!state.operator) return formattedFirst;
 
         const symbol = operatorConfig[state.operator].symbol;
-        const formattedSecond = formatNumber(state.secondNumber);
+        const formattedSecond = formatNumber(state.secondNumber, true);
         return `${formattedFirst} ${symbol} ${formattedSecond}`;
     };
 
